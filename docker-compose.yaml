@@ -1,0 +1,30 @@
+services:
+  web:
+    container_name: web
+    image: nginx:alpine
+    depends_on:
+      # `app`サービス（コンテナ）が先に起動している必要があるので`depends_on`を指定しておく
+      - app
+    ports:
+      # ポートマッピング： "ホストOSのポート:コンテナ(Nginx)のポート"
+      - "80:80"
+    volumes:
+      # volumeマウント： "ホストOSのパス:コンテナにおけるパス"
+      - ./web/conf.d:/etc/nginx/conf.d
+    networks:
+      - nginx_network
+  app:
+    build: .
+    volumes:
+      - .dockervenv:/src/.venv
+      - .:/src
+    ports:
+      - 8000:8000  # ホストマシンのポート3000を、docker内のポート8000に接続する
+    networks:
+      - nginx_network
+volumes:
+  mysql_data:
+
+networks:
+  nginx_network:
+    driver: bridge
