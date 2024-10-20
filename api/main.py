@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from api.create_model import calc_indicator
+from api.create_model import pytorch
 app = FastAPI()
-app.include_router(calc_indicator.router)
+app.include_router(pytorch.router)
 
 @app.get("/hello")
 async def hello():
