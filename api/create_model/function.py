@@ -1,16 +1,8 @@
 import os
-from pandas import DataFrame
-import pandas as pd
-import numpy as np
-from dateutil.parser import parse
 from dotenv import load_dotenv
 load_dotenv()
 
 import boto3
-import mysql.connector as mysql
-from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy import create_engine
-
 
 s3 = boto3.resource('s3',
         aws_access_key_id=os.environ.get("aws_access_key_id"),
